@@ -1,0 +1,39 @@
+name: DevSecOps Security Scan
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Dependencies
+        run: |
+          pip install pandas matplotlib openpyxl
+
+      - name: Dataset Analysis
+        run: |
+          python analysis.py
+
+      - name: Simulated Trivy Scan
+        run: |
+          echo "Scanning infrastructure and source code"
+
+      - name: Simulated Snyk Scan
+        run: |
+          echo "Checking dependencies for vulnerabilities"
+
+      - name: Generate Security Report
+        run: |
+          echo "Security Assessment Completed"
